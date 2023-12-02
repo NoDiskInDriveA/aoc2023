@@ -10,6 +10,5 @@ class Helper {
                 ?.lines()
                 ?: throw FileNotFoundException(str)
         }
-
     }
 }

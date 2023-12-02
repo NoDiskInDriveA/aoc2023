@@ -1,3 +1,5 @@
+package day01
+
 import kotlin.math.max
 import kotlin.math.min
 
@@ -13,8 +15,22 @@ private val digits = mapOf(
     "nine" to 9,
 )
 
-fun part2(str: List<String>): Int {
+fun part1(str: List<String>): Int {
+    return str
+        .sumOf { line: String ->
+            line
+                .first { chr -> chr.isDigit() }
+                .digitToInt()
+                .times(10)
+                .plus(
+                    line
+                        .last { chr -> chr.isDigit() }
+                        .digitToInt()
+                )
+        }
+}
 
+fun part2(str: List<String>): Int {
     return str
         .sumOf { line: String ->
             line.indices
@@ -38,21 +54,6 @@ fun part2(str: List<String>): Int {
                                     if (line.substring(max(index - it.key.length + 1, 0), index + 1) == it.key) it.value else null
                                 }
                         }
-                )
-        }
-}
-
-fun part1(str: List<String>): Int {
-    return str
-        .sumOf { line: String ->
-            line
-                .first { chr -> chr.isDigit() }
-                .digitToInt()
-                .times(10)
-                .plus(
-                    line
-                        .last { chr -> chr.isDigit() }
-                        .digitToInt()
                 )
         }
 }

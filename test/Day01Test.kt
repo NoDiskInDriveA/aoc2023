@@ -1,9 +1,10 @@
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import day01.*
 
-class Day01KtTest {
+class Day01Test {
     @Test
-    fun part1() {
+    fun testPart1() {
         val example = part1(Helper.getInput("day01/part1.example.txt"))
         val real = part1(Helper.getInput("day01/input.txt"))
 
@@ -12,7 +13,7 @@ class Day01KtTest {
     }
 
     @Test
-    fun part2() {
+    fun testPart2() {
         val example = part2(Helper.getInput("day01/part2.example.txt"))
         val real = part2(Helper.getInput("day01/input.txt"))
 
