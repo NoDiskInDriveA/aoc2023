@@ -8,8 +8,12 @@ private enum class Color {
 
 private data class Game(
     val id: Int,
-    val rounds: List<CubeCount>
-)
+    private val rounds: List<CubeCount>
+) {
+    fun maxPower() = rounds.maxPower()
+
+    fun fitsInto(cubeCount: CubeCount) = rounds.all { round -> round.canFitInto(cubeCount) }
+}
 
 data class CubeCount(
     val red: Int = 0,
@@ -73,21 +77,12 @@ private fun gameFactory(str: String): Game {
 fun part1(str: List<String>, actualCubeCount: CubeCount): Int {
     return str
         .map { gameFactory(it) }
-        .filter { game ->
-            game.rounds
-                .all { round ->
-                    round.canFitInto(actualCubeCount)
-                }
-        }
-        .sumOf { game ->
-            game.id
-        }
+        .filter { it.fitsInto(actualCubeCount) }
+        .sumOf { it.id }
 }
 
 fun part2(str: List<String>): Int {
     return str
         .map { gameFactory(it) }
-        .sumOf { game ->
-            game.rounds.maxPower()
-        }
+        .sumOf { it.maxPower() }
 }
