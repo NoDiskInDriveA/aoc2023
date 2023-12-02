@@ -1,6 +1,7 @@
-rootProject.name = "aoc2023-kotlin"
+rootProject.name = "aoc2023"
 
 dependencyResolutionManagement {
+    @Suppress("UnstableApiUsage")
     repositories {
         mavenCentral()
     }
