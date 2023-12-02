@@ -10,6 +10,7 @@ class Day02Test {
         val real = part1(Helper.getInput("day02/input.txt"), cubeCount)
 
         assertEquals(8, example)
+        assertEquals(3099, real) // refactoring check
         println("Part1: $real")
     }
 
@@ -19,6 +20,7 @@ class Day02Test {
         val real = part2(Helper.getInput("day02/input.txt"))
 
         assertEquals(2286, example)
+        assertEquals(72970, real) // refactoring check
         println("Part2: $real")
     }
 }

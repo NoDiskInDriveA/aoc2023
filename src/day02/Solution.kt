@@ -2,8 +2,11 @@ package day02
 
 import kotlin.math.max
 
+private enum class Color {
+    RED,BLUE,GREEN
+}
 
-data class Game(
+private data class Game(
     val id: Int,
     val rounds: List<CubeCount>
 )
@@ -30,7 +33,8 @@ data class CubeCount(
     }
 }
 
-fun List<CubeCount>.maxPower(): Int = reduce { acc, current -> acc.combineToMax(current) }.power()
+private fun List<CubeCount>.maxPower(): Int = reduce { acc, current -> acc.combineToMax(current) }.power()
+
 
 private fun gameFactory(str: String): Game {
     return Game(
@@ -42,20 +46,26 @@ private fun gameFactory(str: String): Game {
             .substringAfter(':')
             .split(';')
             .map { round ->
-                var (red, green, blue) = Triple(0, 0, 0)
-
                 round
                     .split(',')
                     .map { it.trim() }
-                    .forEach { colorstr ->
+                    .associateBy({
                         when {
-                            colorstr.endsWith("green", true) -> green = colorstr.filter { c -> c.isDigit() }.toInt()
-                            colorstr.endsWith("red", true) -> red = colorstr.filter { c -> c.isDigit() }.toInt()
-                            colorstr.endsWith("blue", true) -> blue = colorstr.filter { c -> c.isDigit() }.toInt()
+                            it.endsWith("green", true) -> Color.GREEN
+                            it.endsWith("red", true) -> Color.RED
+                            it.endsWith("blue", true) -> Color.BLUE
+                            else -> throw Exception("Color unparseable")
                         }
+                    }, {
+                        it.filter { c -> c.isDigit() }.toInt()
+                    })
+                    .let { colors ->
+                        CubeCount(
+                            red = colors.getOrDefault(Color.RED, 0),
+                            blue = colors.getOrDefault(Color.BLUE, 0),
+                            green = colors.getOrDefault(Color.GREEN, 0),
+                        )
                     }
-
-                CubeCount(red = red, blue = blue, green = green)
             })
 }
 
