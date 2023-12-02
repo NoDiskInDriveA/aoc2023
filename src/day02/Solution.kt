@@ -12,7 +12,7 @@ private data class Game(
 ) {
     fun maxPower() = rounds.maxPower()
 
-    fun fitsInto(cubeCount: CubeCount) = rounds.all { round -> round.canFitInto(cubeCount) }
+    fun fitsInto(cubeCount: CubeCount) = rounds.all { it.fitsInto(cubeCount) }
 }
 
 data class CubeCount(
@@ -20,7 +20,7 @@ data class CubeCount(
     val blue: Int = 0,
     val green: Int = 0,
 ) {
-    fun canFitInto(other: CubeCount): Boolean {
+    fun fitsInto(other: CubeCount): Boolean {
         return red <= other.red && green <= other.green && blue <= other.blue
     }
 
